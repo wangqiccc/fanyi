@@ -13,11 +13,34 @@
 <body>
   <h3>在线翻译功能实现</h3>
   <ul>
-      <li>输入：<input type="text"></li>
+      <li>输入：<input type="text" id="input"><input type="button" id="btn" value="翻译"></li>
       <li>英文：<output></output><i>复制</i></li>
       <li>意大利语：<output></output><i>复制</i></li>
       <li>法语：<output></output><i>复制</i></li>
       <li>德语：<output></output><i>复制</i></li>
   </ul>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+  <script src="md5.js"></script>
+  <script>
+      $("#btn").click(function(){
+          let salt=(Math.random()*100000000).toFixed(0);
+          let val=$("#input").val();
+          let hash=hex_md5('20190125000259134'+val+salt+'Y3kUJdPlOa2vtIe1iCcY');
+          $.ajax({
+              url:"http://api.fanyi.baidu.com/api/trans/vip/translate",
+              data:{
+                  q:val,
+                  from:"zh",
+                  to:"en",
+                  appid:"20190125000259134",
+                  salt,
+                  sign:hash
+              },
+              success:function(r){
+                  console.log(r);
+              }
+          })
+      })
+  </script>
 </body>
 </html>
