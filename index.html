@@ -23,7 +23,7 @@
   <script src="md5.js"></script>
   <script>
       $("#btn").click(function(){
-          let salt=(Math.random()*100000000).toFixed(0);
+          let salt=Date.now();
           let val=$("#input").val();
           let hash=hex_md5('20190125000259134'+val+salt+'Y3kUJdPlOa2vtIe1iCcY');
           $.ajax({
@@ -33,9 +33,10 @@
                   from:"zh",
                   to:"en",
                   appid:"20190125000259134",
-                  salt,
+                  salt:salt,
                   sign:hash
               },
+              dataType:"jsonp",
               success:function(r){
                   console.log(r);
               }
